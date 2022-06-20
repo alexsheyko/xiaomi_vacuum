@@ -60,12 +60,28 @@ class MiotDevice(Device):
 
             property_mapping[field_name] = {"siid": siid, "piid": piid}
 
-        response = {
-            prop["did"]: prop["value"] if prop["code"] == 0 else None
-            for prop in self.get_properties_for_mapping(
-                property_mapping, max_properties=cls._max_properties
-            )
-        }
+        #response = {
+        #    prop["did"]: prop["value"] if prop["code"] == 0 else None
+        #    for prop in self.get_properties_for_mapping(
+        #        property_mapping, max_properties=cls._max_properties
+        #    )
+        #}
+
+        response = {}
+        for prop in self.get_properties_for_mapping(property_mapping, max_properties=cls._max_properties):
+            try:
+                if prop is str:
+                    continue
+                if "value" not in prop:
+                    continue
+                #_LOGGER.error("not: %s", prop['did'], )
+                #_LOGGER.error("not: %s", prop["code"], )
+                #_LOGGER.error("not: %s", prop["value"], )
+                response[prop["did"]] = prop["value"] if prop["code"] == 0 else None
+            except TypeError:
+                #_LOGGER.error("not: %s", prop, )
+                break
+
 
         return cls(**response)
 

@@ -72,7 +72,7 @@ class MiIOProtocol:
                 codecs.encode(m.checksum, "hex"),
             )
         else:
-            _LOGGER.error("Unable to discover a device at address %s", self.ip)
+            #_LOGGER.error("Unable to discover a device at address %s", self.ip)
             raise DeviceException("Unable to discover the device %s" % self.ip)
 
         return m
