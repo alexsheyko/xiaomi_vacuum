@@ -215,7 +215,8 @@ class Device(metaclass=DeviceGroupMeta):
                 properties_to_request = _props[:max_properties]
                 values.extend(self.send(get_property_method, properties_to_request))
             except DeviceException:
-                _LOGGER.error("Unable to request properties %s", properties_to_request)
+                a = 1
+                #_LOGGER.error("Unable to request properties %s", properties_to_request)
                 #values.append(["request-failed"] * max_properties)
             if max_properties is None:
                 break
