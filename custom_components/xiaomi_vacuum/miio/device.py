@@ -210,13 +210,13 @@ class Device(metaclass=DeviceGroupMeta):
 
         _props = properties.copy()
         values = []
+        properties_to_request = []
         while _props:
             try:
                 properties_to_request = _props[:max_properties]
                 values.extend(self.send(get_property_method, properties_to_request))
             except DeviceException:
-                a = 1
-                #_LOGGER.error("Unable to request properties %s", properties_to_request)
+                _LOGGER.debug("Unable to request properties %s", properties_to_request)
                 #values.append(["request-failed"] * max_properties)
             if max_properties is None:
                 break
